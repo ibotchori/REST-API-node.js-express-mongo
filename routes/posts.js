@@ -73,15 +73,38 @@ router.get("/:postId", async (req, res) => {
 
 /* DELETE A SPECIFIC POST */
 router.delete("/:postId", async (req, res) => {
-    try {
-      // delete specific data form server by ID
-      const removedPost = await Post.remove({_id: req.params.postId});
-      // see removed data on response
-      res.json(removedPost);
-    } catch (error) {
-      // see error on response
-      res.json({ message: error });
-    }
-  });
+  try {
+    // delete specific data form server by ID
+    const removedPost = await Post.remove({ _id: req.params.postId });
+    // see removed data on response
+    res.json(removedPost);
+  } catch (error) {
+    // see error on response
+    res.json({ message: error });
+  }
+});
+
+/* UPDATE A SPECIFIC POST */
+router.patch("/:postId", async (req, res) => {
+  try {
+    // update specific data on server by ID
+    const updatedPost = await Post.updateOne(
+      // select specific data
+      { _id: req.params.postId },
+      // change value on selected data
+      {
+        $set: {
+          // change only title value
+          title: req.body.title,
+        },
+      }
+    );
+    // see updated data on response
+    res.json(updatedPost);
+  } catch (error) {
+    // see error on response
+    res.json({ message: error });
+  }
+});
 
 module.exports = router;
