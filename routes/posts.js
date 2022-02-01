@@ -5,8 +5,17 @@ const router = express.Router();
 // import Post model to save data to database
 const Post = require("../models/Post");
 
-router.get("/", (req, res) => {
-  res.send("We are on post page");
+/* Get data from the server */
+router.get("/", async (req, res) => {
+  try {
+      // get all post from server
+      const posts = await Post.find()
+      // see data on response
+      res.json(posts);
+  } catch (error) {
+       // see error on response
+    res.json({ message: error });
+  }
 });
 
 /* Post data to the server */
