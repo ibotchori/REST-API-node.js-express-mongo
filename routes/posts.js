@@ -5,20 +5,20 @@ const router = express.Router();
 // import Post model to save data to database
 const Post = require("../models/Post");
 
-/* Get data from the server */
+/* GET BACK ALL THE POSTS */
 router.get("/", async (req, res) => {
   try {
-      // get all post from server
-      const posts = await Post.find()
-      // see data on response
-      res.json(posts);
+    // get all data from server
+    const posts = await Post.find();
+    // see data on response
+    res.json(posts);
   } catch (error) {
-       // see error on response
+    // see error on response
     res.json({ message: error });
   }
 });
 
-/* Post data to the server */
+/* SUBMIT A POST */
 // async/await
 router.post("/", async (req, res) => {
   // prepare data
@@ -57,5 +57,18 @@ router.post("/", async (req, res) => {
 //       res.json({ message: err });
 //     });
 // });
+
+/* GET BACK A SPECIFIC POST */
+router.get("/:postId", async (req, res) => {
+  try {
+    // get specific data form server by ID
+    const post = await Post.findById(req.params.postId);
+    // see specific data on response
+    res.json(post);
+  } catch (error) {
+    // see error on response
+    res.json({ message: error });
+  }
+});
 
 module.exports = router;
