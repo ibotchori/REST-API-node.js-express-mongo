@@ -71,4 +71,17 @@ router.get("/:postId", async (req, res) => {
   }
 });
 
+/* DELETE A SPECIFIC POST */
+router.delete("/:postId", async (req, res) => {
+    try {
+      // delete specific data form server by ID
+      const removedPost = await Post.remove({_id: req.params.postId});
+      // see removed data on response
+      res.json(removedPost);
+    } catch (error) {
+      // see error on response
+      res.json({ message: error });
+    }
+  });
+
 module.exports = router;
