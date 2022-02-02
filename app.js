@@ -1,22 +1,26 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser");
 require("dotenv/config");
-const cors = require('cors')
+const cors = require("cors");
 
-// Middleware 
+// Middleware
 // body-parser, parse any requests (convert data to json)
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 // Enable All CORS Requests
-app.use(cors())
- 
+app.use(cors());
 
 // Import routes
 const postRoute = require("./routes/posts");
+const authRoute = require("./routes/auth");
 
-// Middleware for specific routes
+/* Route Middleware (Middleware for specific routes) */
+// post middleware
 app.use("/posts", postRoute); // <-- run postRoute on /post url
+
+// auth middleware
+app.use("/api/user", authRoute);
 
 // Routes
 app.get("/", (req, res) => {
