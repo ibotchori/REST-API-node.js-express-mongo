@@ -5,20 +5,19 @@ const bodyParser = require("body-parser");
 require("dotenv/config");
 const cors = require("cors");
 
-// Middleware
+// Import routes
+const postRoute = require("./routes/posts");
+const authRoute = require("./routes/auth");
+
+/* Middleware */
 // body-parser, parse any requests (convert data to json)
 app.use(bodyParser.json());
 // Enable All CORS Requests
 app.use(cors());
 
-// Import routes
-const postRoute = require("./routes/posts");
-const authRoute = require("./routes/auth");
-
 /* Route Middleware (Middleware for specific routes) */
 // post middleware
 app.use("/posts", postRoute); // <-- run postRoute on /post url
-
 // auth middleware
 app.use("/api/user", authRoute);
 
