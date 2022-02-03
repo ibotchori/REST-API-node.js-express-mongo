@@ -1,4 +1,5 @@
 /* Own routes in separate file */
+const bcrypt = require("bcryptjs");
 const express = require("express");
 const router = express.Router();
 
@@ -21,11 +22,15 @@ router.post("/register", async (req, res) => {
   emailExist = await User.findOne({ email: req.body.email });
   if (emailExist) return res.status(400).send("Email already exists");
 
+  // Hash (encrypt) the password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+
   // Create a new user
   const user = new User({
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password,
+    password: hashedPassword,
   });
   try {
     // save user to database
