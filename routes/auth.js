@@ -17,16 +17,20 @@ router.post("/register", async (req, res) => {
     return res.status(400).send(error.details[0].message);
   }
 
-  // prepare data
+  // Check, if the user is already in the database send the message
+  emailExist = await User.findOne({ email: req.body.email });
+  if (emailExist) return res.status(400).send("Email already exists");
+
+  // Create a new user
   const user = new User({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
   });
   try {
-    // save prepared data to mongo database
+    // save user to database
     const saveUser = await user.save();
-    // see saved data on response
+    // see saved user on response
     res.json(saveUser);
   } catch (error) {
     // see error on response
