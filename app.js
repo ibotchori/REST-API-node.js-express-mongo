@@ -8,6 +8,8 @@ const cors = require("cors");
 // Import routes
 const postRoute = require("./routes/posts");
 const authRoute = require("./routes/auth");
+const privateRoute = require('./routes/privateRoute')
+
 
 /* Middleware */
 // body-parser, parse any requests (convert data to json)
@@ -20,6 +22,8 @@ app.use(cors());
 app.use("/posts", postRoute); // <-- run postRoute on /post url
 // auth middleware
 app.use("/api/user", authRoute);
+// private route middleware
+app.use('/api/private', privateRoute)
 
 // Routes
 app.get("/", (req, res) => {

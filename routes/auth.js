@@ -2,6 +2,7 @@
 const bcrypt = require("bcryptjs");
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 
 // import User model to save data to database
 const User = require("../models/User");
@@ -45,7 +46,7 @@ router.post("/register", async (req, res) => {
 
 /* Login */
 router.post("/login", async (req, res) => {
-  // Validate data with Joi, before create User
+  // Validate data with Joi, before Log in
   const { error } = loginValidation(req.body);
   // in error case stop code execution and see error on response
   if (error) {
@@ -54,7 +55,7 @@ router.post("/login", async (req, res) => {
 
   // Check, if the user is already in the database
   const user = await User.findOne({ email: req.body.email });
-  // if email does not exists sent the message
+  // if user does not exists sent the messagea
   if (!user) return res.status(400).send("Email is not found");
 
   // compare entered password to password from database
@@ -62,8 +63,10 @@ router.post("/login", async (req, res) => {
   // if password is invalid send the message on response
   if (!validPass) return res.status(400).send("Invalid password");
 
-  // if everything is ok, send the message
-  res.send("Logged in");
+  // Create and assign a token, when user is logged in
+  const token = jwt.sign({ _id: user.id }, process.env.TOKEN_SECRET);
+  // add token to header and set the name 'auth-token' to it
+  res.header("auth-token", token).send(token);
 });
 
 module.exports = router;
