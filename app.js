@@ -9,6 +9,8 @@ const cors = require("cors");
 const postRoute = require("./routes/posts");
 const authRoute = require("./routes/auth");
 const privateRoute = require('./routes/privateRoute')
+const shopRoute = require('./routes/shop')
+
 
 
 /* Middleware */
@@ -24,6 +26,8 @@ app.use("/posts", postRoute); // <-- run postRoute on /post url
 app.use("/api/user", authRoute);
 // private route middleware
 app.use('/api/private', privateRoute)
+// shop middleware
+app.use('/shop', shopRoute)
 
 // Routes
 app.get("/", (req, res) => {
