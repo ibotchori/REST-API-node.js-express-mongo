@@ -40,7 +40,7 @@ router.delete("/:shopId", async (req, res) => {
       // delete specific data from server by ID
       const removeShop = await Shop.remove({ _id: req.params.shopId });
       // see removed data on response
-      res.json(removeShop);
+      res.json(req.params.shopId);
     } catch (error) {
       // see error on response
       res.json({ message: error });
