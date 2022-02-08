@@ -17,10 +17,27 @@ router.get("/", async (req, res) => {
   }
 });
 
-/* DELETE A SPECIFIC POST */
+/* SUBMIT A SHOP */
+router.post("/", async (req, res) => {
+    // prepare data
+    const shop = new Shop({
+      text: req.body.text,
+    });
+    try {
+      // save prepared data
+      const savedShop = await shop.save();
+      // see saved data on response
+      res.json(savedShop);
+    } catch (error) {
+      // see error on response
+      res.json({ message: error });
+    }
+  });
+
+/* DELETE A SPECIFIC SHOP */
 router.delete("/:shopId", async (req, res) => {
     try {
-      // delete specific data form server by ID
+      // delete specific data from server by ID
       const removeShop = await Shop.remove({ _id: req.params.shopId });
       // see removed data on response
       res.json(removeShop);

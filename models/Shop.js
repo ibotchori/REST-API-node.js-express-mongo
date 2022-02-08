@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 // Create schema (describe the way your data looks)
 const ShopSchema = mongoose.Schema({
-  title: {
+  text: {
     type: String,
     required: true,
   },
