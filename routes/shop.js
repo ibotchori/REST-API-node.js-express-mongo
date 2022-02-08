@@ -38,8 +38,8 @@ router.post("/", async (req, res) => {
 router.delete("/:shopId", async (req, res) => {
     try {
       // delete specific data from server by ID
-      const removeShop = await Shop.remove({ _id: req.params.shopId });
-      // see removed data on response
+      const removeShop = await Shop.deleteOne({ _id: req.params.shopId });
+      // see removed data id on response
       res.json(req.params.shopId);
     } catch (error) {
       // see error on response
