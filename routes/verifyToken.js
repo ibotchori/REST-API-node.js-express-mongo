@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 
-
 /* Middleware function, we can add it to any routes that routes we want to be protected */
 
 module.exports = function (req, res, next) {
@@ -11,10 +10,10 @@ module.exports = function (req, res, next) {
 
   try {
     // check, if token verified add it to user. (compare token from req.header with SECRET)
-    const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+    const verified = jwt.verify(token, "asdasdasd");
     req.user = verified;
   } catch (error) {
-    res.status(400).send('Invalid Token')
+    res.status(400).send("Invalid Token");
   }
   next();
 };

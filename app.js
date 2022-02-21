@@ -8,10 +8,8 @@ const cors = require("cors");
 // Import routes
 const postRoute = require("./routes/posts");
 const authRoute = require("./routes/auth");
-const privateRoute = require('./routes/privateRoute')
-const shopRoute = require('./routes/shop')
-
-
+const privateRoute = require("./routes/privateRoute");
+const shopRoute = require("./routes/shop");
 
 /* Middleware */
 // body-parser, parse any requests (convert data to json)
@@ -25,9 +23,9 @@ app.use("/posts", postRoute); // <-- run postRoute on /post url
 // auth middleware
 app.use("/api/user", authRoute);
 // private route middleware
-app.use('/api/private', privateRoute)
+app.use("/api/private", privateRoute);
 // shop middleware
-app.use('/shop', shopRoute)
+app.use("/shop", shopRoute);
 
 // Routes
 app.get("/", (req, res) => {
@@ -35,9 +33,12 @@ app.get("/", (req, res) => {
 });
 
 // Connect to database
-mongoose.connect(process.env.DB_CONNECTION, () => {
-  console.log("Connect to DB");
-});
+mongoose.connect(
+  "mongodb+srv://irakli:irakli83@cluster0.xvnnn.mongodb.net/posts?retryWrites=true&w=majority",
+  () => {
+    console.log("Connect to DB");
+  }
+);
 
 // Listening to the server
 app.listen(4000);
