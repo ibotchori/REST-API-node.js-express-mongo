@@ -33,12 +33,9 @@ app.get("/", (req, res) => {
 });
 
 // Connect to database
-mongoose.connect(
-  "mongodb+srv://irakli:irakli83@cluster0.xvnnn.mongodb.net/posts?retryWrites=true&w=majority",
-  () => {
-    console.log("Connect to DB");
-  }
-);
+mongoose.connect(process.env.DB_CONNECTION, () => {
+  console.log("Connect to DB");
+});
 
 // Listening to the server
 app.listen(4000);

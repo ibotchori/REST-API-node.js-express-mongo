@@ -10,7 +10,7 @@ module.exports = function (req, res, next) {
 
   try {
     // check, if token verified add it to user. (compare token from req.header with SECRET)
-    const verified = jwt.verify(token, "asdasdasd");
+    const verified = jwt.verify(token, process.env.TOKEN_SECRET);
     req.user = verified;
   } catch (error) {
     res.status(400).send("Invalid Token");
