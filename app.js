@@ -10,6 +10,7 @@ const postRoute = require("./routes/posts");
 const authRoute = require("./routes/auth");
 const privateRoute = require("./routes/privateRoute");
 const shopRoute = require("./routes/shop");
+const skillsRoute = require("./routes/skills");
 
 /* Middleware */
 // body-parser, parse any requests (convert data to json)
@@ -26,6 +27,8 @@ app.use("/api/user", authRoute);
 app.use("/api/private", privateRoute);
 // shop middleware
 app.use("/shop", shopRoute);
+// skills middleware
+app.use("/skills", skillsRoute);
 
 // Routes
 app.get("/", (req, res) => {
