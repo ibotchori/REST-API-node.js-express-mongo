@@ -29,4 +29,22 @@ router.get("/", async (req, res) => {
   }
 });
 
+/* Submit A Skill */
+router.post("/", async (req, res) => {
+  // prepare data
+  const skill = new Skills({
+    id: req.body.id,
+    title: req.body.title,
+  });
+  try {
+    // save prepared data to database
+    const savedSkills = await skill.save();
+    // see saved data on response
+    res.json(savedSkills);
+  } catch (error) {
+    // see error on response
+    res.json({ message: error });
+  }
+});
+
 module.exports = router;
