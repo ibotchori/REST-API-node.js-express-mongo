@@ -18,11 +18,20 @@ const Skills = require("../models/Skills");
 /* GET BACK ALL THE Skills */
 router.get("/", async (req, res) => {
   try {
-    // extract data from Mongo Database
+    // extract data (Array of objects) from Mongo Database
     const skills = await Skills.find();
 
+    // extract only 2 property from objects
+    const newArr = skills.map((item) => {
+      let filteredObject = {
+        id: item.id,
+        title: item.title,
+      };
+      return filteredObject;
+    });
+
     // see data on response
-    res.json(skills);
+    res.json(newArr);
   } catch (error) {
     // see error on response
     res.json({ message: error });
